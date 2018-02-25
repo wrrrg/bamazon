@@ -212,17 +212,21 @@ function addNewProduct(){
           stock_quantity: parseInt(answer.stock),
           id: res.length + 1
       };
-      var sql = "INSERT INTO products (id, product_name, stock_quantity, price) VALUES ?";
-      var values = [newItem.id, newItem.product_name, newItem.stock_quantity, newItem.price];
 
-     connection.query(sql, [values],
-
-
+     connection.query("INSERT INTO products SET ?",
+                      [
+                        {
+                          id: newItem.id,
+                          product_name: newItem.product_name,
+                          stock_quantity: newItem.stock_quantity,
+                          price: newItem.price
+                        }
+                      ],
       function(error) {
         if(error){
           console.log(error);
         }
-        console.log("Added successfully.");
+        console.log("Added " + newItem.product_name + "successfully.");
         moreAction();
       }
      );
